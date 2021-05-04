@@ -334,3 +334,52 @@ class Solution {
         return dummy.next;
     }
 }
+
+Q.8.(86).Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+
+You should preserve the original relative order of the nodes in each of the two partitions.
+Input: head = [1,4,3,2,5,2], x = 3
+Output: [1,2,2,4,3,5]
+
+Input: head = [2,1], x = 2
+Output: [1,2]
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode dummy=new ListNode(101);
+        ListNode previous=dummy;                        //Here we are creating two listnode first to store value less tha x and second to store value greater than x
+        ListNode dummy1=new ListNode(102);
+        ListNode previous1=dummy1;
+        ListNode temp=head;
+        while(temp!=null)
+        {
+            if(temp.val<x)
+            {
+                ListNode newnode=new ListNode(temp.val);             //Creating newnode with value temp.val
+               previous.next=newnode;
+                previous=previous.next;                                  //Making listode that store value less than x
+            }
+            else
+            {
+                 ListNode newnode1=new ListNode(temp.val);             //Creating newnode with value temp.val
+                previous1.next=newnode1;                                //Creating listnode that store value greater than x
+                previous1=previous1.next;
+            }
+            temp=temp.next;
+        }
+        previous1.next=null;
+        previous.next=dummy1.next;                                    //Connecting complete listnode by connecting both the listnode
+        return dummy.next;
+        
+    }
+}
