@@ -252,3 +252,48 @@ class Solution {
     return head;
     }
 }
+
+Q.6.(82).Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.
+Input: head = [1,2,3,3,4,4,5]
+Output: [1,2,5]
+
+Input: head = [1,1,1,2,3]
+Output: [2,3]
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy= new ListNode(101,head);                    //Creating same listnode+addition of a node with value 101 at beginning
+        ListNode prev = dummy;
+        ListNode temp = head;
+        boolean match=false;
+        while(temp!=null && temp.next!=null)
+        {
+            match=false;
+            while(temp.next!=null && temp.next.val==temp.val) 
+            {
+                temp=temp.next;                                          //from this loop temp will point to last element of common pair
+                match=true;
+            }   
+            if(match)
+            {
+                prev.next=temp.next;                                    //we remove all common element
+            }
+            else 
+            {
+                prev=prev.next;                                        //if there duplicate is not found
+            }
+            temp=temp.next;
+        }
+        return dummy.next;                                              //return from dummy.next index as at first node 101 is stored
+    }
+}
